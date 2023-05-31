@@ -7,7 +7,7 @@ import '../model/Subwaymodel.dart';
 const Color subwayfield_text = Colors.black;
 
 class InputSubway extends StatefulWidget {
-  final Function(String) itemSubmitted;
+  final Function(SubwayModel) itemSubmitted;
 
   const InputSubway({
     Key? key,
@@ -28,52 +28,55 @@ class _InputSubwayState extends State<InputSubway> {
   Widget build(BuildContext context) {
     double appHeight = MediaQuery.of(context).size.height;///  896.0 IPHONE11
 
-    return Container(
-      width: appHeight * 0.2791,
-      height: appHeight * 0.07255,
-      child: AutoCompleteTextField<SubwayModel>(
-        focusNode: _focusNode,
-        key: key,
-        itemSubmitted: (SubwayModel suggestion) => widget.itemSubmitted,
-        suggestions: SubwayInfos, /// googlesheet에서 가져올 수 있을까 /// _kOptions
-        itemBuilder: (context, SubwayModel suggestion){
-          return ListTile(
-            title: Text(suggestion.name),
-          );
-        },
-        itemSorter: (SubwayModel a, SubwayModel b){
-          return a.name.compareTo(b.name);
-        },
-        itemFilter: (SubwayModel, query){
-          return SubwayModel.name.toLowerCase().startsWith(query.toLowerCase());
-        },
-        decoration: InputDecoration(
-          hintText: '입력 후 완료버튼을 누르세요',
-          labelText: 'Enter Destination',
-          hintStyle: TextStyle(color: subwayfield_text),
-          /// 'Enter Destination'
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          prefixIcon: Icon(
-            Icons.subway,
-            color: subwayfield_text,
-          ),
-          suffixIcon: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(10.0),
-              onTap: () {
-                _controller.clear();
-              },
-              child: Icon(
-                  Icons.clear,
-                  color: subwayfield_text
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: appHeight * 0.2791,
+        height: appHeight * 0.07255,
+        child: AutoCompleteTextField<SubwayModel>(
+          focusNode: _focusNode,
+          key: key,
+          itemSubmitted: (SubwayModel suggestion) => widget.itemSubmitted,
+          suggestions: SubwayInfos, /// googlesheet에서 가져올 수 있을까 /// _kOptions
+          itemBuilder: (context, SubwayModel suggestion){
+            return ListTile(
+              title: Text(suggestion.name),
+            );
+          },
+          itemSorter: (SubwayModel a, SubwayModel b){
+            return a.name.compareTo(b.name);
+          },
+          itemFilter: (SubwayModel, query){
+            return SubwayModel.name.toLowerCase().startsWith(query.toLowerCase());
+          },
+          decoration: InputDecoration(
+            hintText: '입력 후 완료버튼을 누르세요',
+            labelText: 'Enter Destination',
+            hintStyle: TextStyle(color: subwayfield_text),
+            /// 'Enter Destination'
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            prefixIcon: Icon(
+              Icons.subway,
+              color: subwayfield_text,
+            ),
+            suffixIcon: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(10.0),
+                onTap: () {
+                  _controller.clear();
+                },
+                child: Icon(
+                    Icons.clear,
+                    color: subwayfield_text
+                ),
               ),
             ),
           ),
-        ),
 
+        ),
       ),
     );
   }
