@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('왜 오토 택스트필드값이 저장이 되지 않을까요'),),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
